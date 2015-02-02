@@ -8,7 +8,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill beanstalkd
 ExecStartPre=-/usr/bin/docker rm beanstalkd
 ExecStartPre=/usr/bin/docker pull lasr/dockerbeanstalkd
-ExecStart=/usr/bin/docker run --name beanstalkd lasr/dockerbeanstalkd
+ExecStart=/usr/bin/docker run --name beanstalkd -p 11300:11300 lasr/dockerbeanstalkd
 ExecStop=/usr/bin/docker stop beanstalkd
 
 [X-Fleet]

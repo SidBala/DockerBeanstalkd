@@ -8,5 +8,8 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill beanstalkd
 ExecStartPre=-/usr/bin/docker rm beanstalkd
 ExecStartPre=/usr/bin/docker pull lasr/dockerbeanstalkd
-ExecStart=/usr/bin/docker run --name busybox1 beanstalkd /bin/sh -c "while true; do echo Hello World; sleep 1; done"
+ExecStart=/usr/bin/docker run --name beanstalkd lasr/dockerbeanstalkd
 ExecStop=/usr/bin/docker stop beanstalkd
+
+[X-Fleet]
+Conflicts=Beanstalkd.service

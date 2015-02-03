@@ -1,10 +1,14 @@
 [Unit]
 Description=Beanstalkd service announcer
+Requires=etcd.service
+
+After=etcd.service
+After=Beanstalkd.service
 BindsTo=Beanstalkd.service
 
 [Service]
-ExecStart=/bin/sh -c "while true; do etcdctl set /beanstalkd '%H' --ttl 60;sleep 45;done"
+ExecStart=/bin/sh -c "while true; do echo hello from beanstalkd; /usr/bin/etcdctl set /beanstalkd %H --ttl 15; sleep 10; done"
 ExecStop=/usr/bin/etcdctl rm /beanstalkd
 
-[X-Fleet]s
+[X-Fleet]
 MachineOf=Beanstalkd.service
